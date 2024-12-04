@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Genera PDF</title>
+</head>
+<body>
+    <div class="form-container">
+        <form id="form-dati">
+            <h1>Inserisci i Dati</h1>
+            <label for="nome">Cognome Nome / Ragione Sociale:</label>
+            <input type="text" id="nome" name="nome" required>
+            
+            <label for="polizza">Polizza:</label>
+            <input type="text" id="polizza" name="polizza" required>
+            
+            <label for="scadenza">Scadenza (GG/MM/AAAA):</label>
+            <input type="date" id="scadenza" name="scadenza" value="<?= date('Y-m-d') ?>" required>
+            
+            <label>Tipo:</label>
+            <div class="radio-group">
+                <input type="radio" id="intermedia" name="tipo" value="Rata intermedia" required>
+                <label for="intermedia">Rata intermedia</label>
+                <input type="radio" id="annualita" name="tipo" value="Annualità">
+                <label for="annualita">Annualità</label>
+            </div>
+            
+            <label for="premio">Premio:</label>
+            <input type="number" id="premio" name="premio" step="0.01" required>
+            
+            <button type="button" id="invia">Genera PDF</button>
+        </form>
+    </div>
+</body>
+<script src="script.js"></script>
+</html>
