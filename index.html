@@ -17,7 +17,7 @@
             <input type="text" id="polizza" name="polizza" required>
             
             <label for="scadenza">Scadenza (GG/MM/AAAA):</label>
-            <input type="date" id="scadenza" name="scadenza" value="<?= date('Y-m-d') ?>" required>
+            <input type="date" id="scadenza" name="scadenza" value="" required>
             
             <label>Tipo:</label>
             <div class="radio-group">
@@ -33,6 +33,36 @@
             <button type="button" id="invia">Genera PDF</button>
         </form>
     </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            // Imposta la data di oggi di default nel campo scadenza
+            const today = new Date().toISOString().split("T")[0];
+            document.getElementById("scadenza").value = today;
+
+            // Gestione del click sul pulsante "Genera PDF"
+            document.getElementById("invia").addEventListener("click", async () => {
+                const form = document.getElementById("form-dati");
+                const formData = new FormData(form);
+
+                const data = Object.fromEntries(formData.entries());
+                try {
+                    const response = await fetch("https://script.google.com/macros/s/AKfycbz8mocryGjDqrcKPbfWSMl1JfymO_oUw8UZLjdS9GippvpBS8FfTurM512blJLNnogs4g/exec", {
+                        method: "POST",
+                        body: JSON.stringify(data),
+                        headers: { "Content-Type": "application/json" }
+                    });
+
+                    const result = await response.json();
+                    if (result.success) {
+                        alert("PDF generato e salvato con successo!");
+                    } else {
+                        alert("Errore durante la generazione del PDF: " + result.error);
+                    }
+                } catch (error) {
+                    alert("Errore di connessione: " + error.message);
+                }
+            });
+        });
+    </script>
 </body>
-<script src="script.js"></script>
 </html>
